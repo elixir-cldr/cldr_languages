@@ -1,11 +1,21 @@
-# CldrLanguages
+# Cldr Languages
 
-**TODO: Add description**
+[ex\_cldr\_languages](https://github.com/LostKobrakai/cldr_languages) is an addon library application for [ex_cldr](https://hex.pm/packages/ex_cldr) that provides localization and listing of languages.
+
+The primary api is Cldr.Language.to_string/2. The following examples demonstrate:
+
+```elixir
+iex> Cldr.Language.to_string "en-GB"
+{:ok, "British English"}
+
+iex> Cldr.Language.to_string "en-GB", style: :short
+{:ok, "UK English"}
+
+iex> Cldr.Language.to_string "en", locale: "de"
+{:ok, "Englisch"}
+```
 
 ## Installation
-
-If [available in Hex](https://hex.pm/docs/publish), the package can be installed
-by adding `cldr_languages` to your list of dependencies in `mix.exs`:
 
 ```elixir
 def deps do
@@ -14,8 +24,4 @@ def deps do
   ]
 end
 ```
-
-Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_doc)
-and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
-be found at [https://hexdocs.pm/cldr_languages](https://hexdocs.pm/cldr_languages).
 
