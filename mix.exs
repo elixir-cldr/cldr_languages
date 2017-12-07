@@ -3,11 +3,36 @@ defmodule CldrLanguages.Mixfile do
 
   def project do
     [
-      app: :cldr_languages,
-      version: "0.1.0",
+      app: :ex_cldr_languages,
+      version: "0.1.0-alpha",
       elixir: "~> 1.5",
       start_permanent: Mix.env == :prod,
-      deps: deps()
+      deps: deps(),
+      description: description(),
+      package: package(),
+      deps: deps(),
+      source_url: "https://github.com/LostKobrakai/cldr_languages",
+      docs: docs()
+    ]
+  end
+  
+  defp description do
+    "ex_cldr_languages is an addon library application for ex_cldr that provides localization and listing of languages."
+  end
+  
+  defp docs do
+    [
+      main: "README",
+      extras: ["README.md"]
+    ]
+  end
+
+  defp package do
+    [
+      files: ["lib", "mix.exs", "README*", "LICENSE*"],
+      maintainers: ["Benjamin Milde"],
+      licenses: ["Apache 2.0"],
+      links: %{"GitHub" => "https://github.com/LostKobrakai/cldr_languages"}
     ]
   end
 
@@ -22,7 +47,7 @@ defmodule CldrLanguages.Mixfile do
   defp deps do
     [
       {:ex_cldr, "~> 1.0.0-rc.3"},
-      # {:dep_from_git, git: "https://github.com/elixir-lang/my_dep.git", tag: "0.1.0"},
+      {:ex_doc, "~> 0.16", only: :dev, runtime: false}
     ]
   end
 end

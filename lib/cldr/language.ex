@@ -1,38 +1,43 @@
 defmodule Cldr.Language do
+  @moduledoc """
+  Cldr Languages does provide functionality regarding languages within the data
+  supplied by the Cldr core package.
+  """
   require Cldr
   alias Cldr.LanguageTag
   alias Cldr.Locale
 
+  @type styles :: :standard | :short
   @styles [:standard, :short]
 
   @languages Cldr.default_locale
     |> Map.get(:cldr_locale_name)
     |> Cldr.Config.get_locale
     |> Map.get(:languages)
+
   @available_languages @languages |> Map.keys()
 
   @doc """
-  Returns a list of the known unit categories.
-  ## Example
-      [:acceleration, :angle, :area, :concentr, :consumption, :coordinate, :digital,
-      :duration, :electric, :energy, :frequency, :length, :light, :mass, :power,
-      :pressure, :speed, :temperature, :volume]
+  Returns a list of the known languages.
   """
+  @spec all_languages() :: list(String.t)
   def all_languages do
     @available_languages
   end
 
   @doc """
+  Return a list of available translations for the given locale
   """
-  @spec available_languages(String.t | LanguageTag.t) :: list(atom) | {:error, {Exeption.t, String.t}}
+  @spec available_languages(String.t | LanguageTag.t) :: list(String.t) | {:error, term()}
   def available_languages(locale \\ Cldr.get_current_locale())
   def available_languages(%LanguageTag{cldr_locale_name: cldr_locale_name}) do
     available_languages(cldr_locale_name)
   end
 
   @doc """
+  Return all the language translations for the given locale
   """
-  @spec known_languages(String.t | LanguageTag.t) :: map | {:error, {Exeption.t, String.t}}
+  @spec known_languages(String.t | LanguageTag.t) :: %{required(styles()) => String.t} | {:error, term()}
   def known_languages(locale \\ Cldr.get_current_locale())
   def known_languages(%LanguageTag{cldr_locale_name: cldr_locale_name}) do
     known_languages(cldr_locale_name)
@@ -54,6 +59,10 @@ defmodule Cldr.Language do
   
   def known_languages(locale), do: {:error, Locale.locale_error(locale)}
 
+  @doc """
+  Try to translate the given lanuage iso code or language tag.
+  """
+  @spec to_string(String.t | LanguageTag.t) :: {:ok, String.t} | {:error, term()}
   def to_string(key, options \\ []) do
     %{locale: locale, style: style} = Keyword.merge(default_options(), options) |> Enum.into(%{})
 

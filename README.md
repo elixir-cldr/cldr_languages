@@ -1,6 +1,6 @@
 # Cldr Languages
 
-[ex\_cldr\_languages](https://github.com/LostKobrakai/cldr_languages) is an addon library application for [ex_cldr](https://hex.pm/packages/ex_cldr) that provides localization and listing of languages.
+[ex_cldr_languages](https://github.com/LostKobrakai/cldr_languages) is an addon library application for [ex_cldr](https://hex.pm/packages/ex_cldr) that provides localization and listing of languages.
 
 The primary api is Cldr.Language.to_string/2. The following examples demonstrate:
 
