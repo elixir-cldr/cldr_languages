@@ -12,7 +12,9 @@ defmodule CldrLanguages.Mixfile do
       package: package(),
       deps: deps(),
       source_url: "https://github.com/LostKobrakai/cldr_languages",
-      docs: docs()
+      docs: docs(),
+      test_coverage: [tool: ExCoveralls],
+      preferred_cli_env: cli_env()
     ]
   end
   
@@ -47,7 +49,17 @@ defmodule CldrLanguages.Mixfile do
   defp deps do
     [
       {:ex_cldr, "~> 1.0.0"},
-      {:ex_doc, "~> 0.16", only: :dev, runtime: false}
+      {:ex_doc, "~> 0.16", only: :dev, runtime: false},
+      {:excoveralls, "~> 0.8", only: :test}
+    ]
+  end
+
+  defp cli_env do
+    [
+      "coveralls": :test, 
+      "coveralls.detail": :test, 
+      "coveralls.post": :test, 
+      "coveralls.html": :test
     ]
   end
 end
