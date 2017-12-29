@@ -24,7 +24,6 @@ defmodule CldrLanguages.Mixfile do
   
   defp docs do
     [
-      main: "README",
       extras: ["README.md"]
     ]
   end
