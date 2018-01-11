@@ -3,6 +3,6 @@
 use Mix.Config
 
 config :ex_cldr,
-  json_library: Jason
+  json_library: Poison
 
 import_config "#{Mix.env}.exs"

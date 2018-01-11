@@ -50,7 +50,8 @@ defmodule CldrLanguages.Mixfile do
       {:ex_cldr, "~> 1.2"},
       {:ex_doc, "~> 0.16", only: :dev, runtime: false},
       {:excoveralls, "~> 0.8", only: :test},
-      {:jason, "~> 1.0-rc"}
+      {:poison, "~> 2.1 or ~> 3.0", optional: true},
+      # {:jason, "~> 1.0-rc", optional: true}
     ]
   end
 
