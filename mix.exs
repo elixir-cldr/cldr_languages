@@ -47,9 +47,10 @@ defmodule CldrLanguages.Mixfile do
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
-      {:ex_cldr, "~> 1.0"},
+      {:ex_cldr, "~> 1.2"},
       {:ex_doc, "~> 0.16", only: :dev, runtime: false},
-      {:excoveralls, "~> 0.8", only: :test}
+      {:excoveralls, "~> 0.8", only: :test},
+      {:jason, "~> 1.0-rc"}
     ]
   end
 
