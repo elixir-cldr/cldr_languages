@@ -26,7 +26,7 @@ iex> Cldr.Language.to_string "en", locale: "de"
 ```elixir
 def deps do
   [
-    {:cldr_languages, "~> 0.1.0"}
+    {:ex_cldr_languages, "~> 0.1.1"}
   ]
 end
 ```
