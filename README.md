@@ -1,7 +1,6 @@
 # Cldr Languages
 
 [![Build Status](https://travis-ci.org/LostKobrakai/cldr_languages.svg?branch=master)](https://travis-ci.org/LostKobrakai/cldr_languages)
-[![Coverage Status](https://coveralls.io/repos/github/LostKobrakai/cldr_languages/badge.svg)](https://coveralls.io/github/LostKobrakai/cldr_languages)
 [![Hex.pm](https://img.shields.io/hexpm/v/ex_cldr_languages.svg)](https://hex.pm/packages/ex_cldr_languages)
 [![Hex.pm](https://img.shields.io/hexpm/dw/ex_cldr_languages.svg?)](https://hex.pm/packages/ex_cldr_languages)
 [![Hex.pm](https://img.shields.io/hexpm/l/ex_cldr_languages.svg)](https://hex.pm/packages/ex_cldr_languages)
