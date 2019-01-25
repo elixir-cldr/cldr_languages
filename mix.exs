@@ -49,7 +49,7 @@ defmodule CldrLanguages.Mixfile do
   defp deps do
     [
       {:ex_cldr, "~> 2.2"},
-      {:ex_doc, "~> 0.16", only: :dev, runtime: false},
+      {:ex_doc, "~> 0.19.0", only: :dev, runtime: false},
       {:excoveralls, "~> 0.8", only: :test},
       {:jason, "~> 1.0", optional: true}
     ]
