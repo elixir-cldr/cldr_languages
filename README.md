@@ -8,16 +8,16 @@
 
 [ex_cldr_languages](https://github.com/LostKobrakai/cldr_languages) is an addon library application for [ex_cldr](https://hex.pm/packages/ex_cldr) that provides localization and listing of languages.
 
-The primary api is Cldr.Language.to_string/2. The following examples demonstrate:
+The primary api is `MyApp.Backend.Language.to_string/2`. The following examples demonstrate:
 
 ```elixir
-iex> Cldr.Language.to_string "en-GB"
+iex> MyApp.Backend.Language.to_string "en-GB"
 {:ok, "British English"}
 
-iex> Cldr.Language.to_string "en-GB", style: :short
+iex> MyApp.Backend.Language.to_string "en-GB", style: :short
 {:ok, "UK English"}
 
-iex> Cldr.Language.to_string "en", locale: "de"
+iex> MyApp.Backend.Language.to_string "en", locale: "de"
 {:ok, "Englisch"}
 ```
 
@@ -26,8 +26,12 @@ iex> Cldr.Language.to_string "en", locale: "de"
 ```elixir
 def deps do
   [
-    {:ex_cldr_languages, "~> 0.1.1"}
+    {:ex_cldr_languages, "~> 0.2.0"}
   ]
 end
 ```
 
+## Migration from v0.1.1 to v0.2.0
+
+With the switch to `ex_cldr` v2 any functionality is now to be called via `MyApp.Backend.Language` instead of `Cldr.Language`. This breaking change was 
+also used to remove `all_languages/0` in favor of `available_languages/0`.
