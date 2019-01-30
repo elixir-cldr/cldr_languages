@@ -28,15 +28,6 @@ defmodule Cldr.Language do
 
   """
 
-  # Compat with the already merged "known provider" in ex_cldr 2.2.0
-  # Will be removed once ex_cldr is updated
-  defmodule Backend do
-    @moduledoc false
-    def define_language_module(config) do
-      Cldr.Language.cldr_backend_provider(config)
-    end
-  end
-
   # This is only meant to be called by Cldr
   @doc false
   def cldr_backend_provider(config) do

@@ -4,7 +4,7 @@ defmodule CldrLanguages.Mixfile do
   def project do
     [
       app: :ex_cldr_languages,
-      version: "0.2.0",
+      version: "0.2.1",
       elixir: "~> 1.5",
       start_permanent: Mix.env() == :prod,
       deps: deps(),
@@ -48,7 +48,7 @@ defmodule CldrLanguages.Mixfile do
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
-      {:ex_cldr, "~> 2.2"},
+      {:ex_cldr, "~> 2.2 and >= 2.2.1"},
       {:ex_doc, "~> 0.19.0", only: :dev, runtime: false},
       {:excoveralls, "~> 0.8", only: :test},
       {:jason, "~> 1.0", optional: true}
