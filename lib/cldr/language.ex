@@ -124,7 +124,7 @@ defmodule Cldr.Language do
           languages = locale_name |> Cldr.Config.get_locale(config) |> Map.get(:languages)
 
           def available_languages(unquote(locale_name)) do
-            Enum.sort(unquote(Map.keys(languages)))
+            unquote(Enum.sort(Map.keys(languages)))
           end
 
           def known_languages(unquote(locale_name)) do
