@@ -110,9 +110,9 @@ defmodule Cldr.Language do
             "tiv" => %{standard: "Tiv"}, "aln" => %{standard: "Gheg Albanian"},
             "sh" => %{standard: "Serbo-Croatian"}, "fil" => %{...}, ...}
         """
-        @spec known_languages() :: %{required(styles()) => String.t()} | {:error, term()}
+        @spec known_languages() :: %{required(String.t()) => %{required(atom) => String.t()}} | {:error, term()}
         @spec known_languages(String.t() | LanguageTag.t()) ::
-                %{required(styles()) => String.t()} | {:error, term()}
+                %{required(String.t()) => %{required(atom) => String.t()}} | {:error, term()}
         def known_languages(locale \\ get_locale())
 
         def known_languages(%LanguageTag{cldr_locale_name: cldr_locale_name}) do
