@@ -33,7 +33,7 @@ defmodule CldrLanguages.Mixfile do
     [
       files: ["lib", "mix.exs", "README*", "LICENSE*", "CHANGELOG*"],
       maintainers: ["Benjamin Milde"],
-      licenses: ["Apache 2.0"],
+      licenses: ["Apache-2.0"],
       links: %{"GitHub" => "https://github.com/LostKobrakai/cldr_languages"}
     ]
   end
