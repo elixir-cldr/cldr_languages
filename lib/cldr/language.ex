@@ -121,7 +121,7 @@ defmodule Cldr.Language do
         end
 
         # Implement available_locales/known_locales
-        for locale_name <- Cldr.Config.known_locale_names(config) do
+        for locale_name <- Cldr.Locale.Loader.known_locale_names(config) do
           languages = locale_name |> Cldr.Locale.Loader.get_locale(config) |> Map.get(:languages)
 
           def available_languages(unquote(locale_name)) do
