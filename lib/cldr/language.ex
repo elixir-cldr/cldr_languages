@@ -110,7 +110,8 @@ defmodule Cldr.Language do
             "tiv" => %{standard: "Tiv"}, "aln" => %{standard: "Gheg Albanian"},
             "sh" => %{standard: "Serbo-Croatian"}, "fil" => %{...}, ...}
         """
-        @spec known_languages() :: %{String.t() => %{required(styles()) => String.t()}} | {:error, term()}
+        @spec known_languages() ::
+                %{String.t() => %{required(styles()) => String.t()}} | {:error, term()}
         @spec known_languages(String.t() | LanguageTag.t()) ::
                 %{String.t() => %{required(styles()) => String.t()}} | {:error, term()}
         def known_languages(locale \\ get_locale())
@@ -120,8 +121,8 @@ defmodule Cldr.Language do
         end
 
         # Implement available_locales/known_locales
-        for locale_name <- Cldr.Config.known_locale_names(config) do
-          languages = locale_name |> Cldr.Config.get_locale(config) |> Map.get(:languages)
+        for locale_name <- Cldr.Locale.Loader.known_locale_names(config) do
+          languages = locale_name |> Cldr.Locale.Loader.get_locale(config) |> Map.get(:languages)
 
           def available_languages(unquote(locale_name)) do
             unquote(Enum.sort(Map.keys(languages)))
