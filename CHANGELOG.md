@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.3.1] - 2022-01-04
+### Changed
+- Loosen ex_cldr dependency
+
 ## [0.3.0] - 2021-10-29
 ### Changed
 - Updated minimal dependency on ex_cldr
