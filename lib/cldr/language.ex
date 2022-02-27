@@ -66,9 +66,9 @@ defmodule Cldr.Language do
             "asa", "ase", "ast", "av", "avk", "awa", "ay", "az", "ba", "bal", "ban", "bar",
             "bas", "bax", "bbc", "bbj", ...]
         """
-        @spec available_languages() :: list(atom()) | {:error, term()}
+        @spec available_languages() :: list(String.t()) | {:error, term()}
         @spec available_languages(Cldr.locale_name() | LanguageTag.t()) ::
-                list(atom) | {:error, term()}
+                list(String.t()) | {:error, term()}
         def available_languages(locale \\ get_locale())
 
         def available_languages(%LanguageTag{cldr_locale_name: cldr_locale_name}) do
@@ -134,17 +134,21 @@ defmodule Cldr.Language do
         end
 
         # Error cases for available_locales/known_locales
-        def available_languages(locale) when is_binary(locale) do
+        def available_languages(locale) when Cldr.is_locale_name(locale) do
           with {:ok, locale} <- backend().validate_locale(locale) do
             available_languages(locale)
           end
         end
 
-        def known_languages(locale) when is_binary(locale) do
+        def available_languages(locale), do: {:error, Locale.locale_error(locale)}
+
+        def known_languages(locale) do
           with {:ok, locale} <- backend().validate_locale(locale) do
             known_languages(locale)
           end
         end
+
+        def known_languages(locale), do: {:error, Locale.locale_error(locale)}
 
         @doc """
         Try to translate the given language iso code or language tag.
