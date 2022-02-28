@@ -17,6 +17,26 @@ defmodule Cldr.LanguageTest do
              TestBackend.Language.to_string(:de)
   end
 
+  test "that a valid but unknown locale does not cause infinite loops" do
+    assert TestBackend.Language.available_languages(:nl) ==
+      {:error, {Cldr.UnknownLocaleError, "The locale :nl is not known."}}
+
+    assert TestBackend.Language.available_languages("nl") ==
+      {:error, {Cldr.UnknownLocaleError, "The locale \"nl\" is not known."}}
+
+    assert TestBackend.Language.available_languages({:bogus, :type}) ==
+      {:error, {Cldr.UnknownLocaleError, "The locale {:bogus, :type} is not known."}}
+
+    assert TestBackend.Language.known_languages(:nl) ==
+      {:error, {Cldr.UnknownLocaleError, "The locale :nl is not known."}}
+
+    assert TestBackend.Language.known_languages("nl") ==
+      {:error, {Cldr.UnknownLocaleError, "The locale \"nl\" is not known."}}
+
+    assert TestBackend.Language.known_languages({:bogus, :type}) ==
+      {:error, {Cldr.UnknownLocaleError, "The locale {:bogus, :type} is not known."}}
+  end
+
   test "it does fall back to the default locale if a language is not available in the selected one" do
     assert {:ok, _} = TestBackend.Language.to_string(:ccp, locale: :de, fallback: true)
   end
