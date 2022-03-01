@@ -67,7 +67,7 @@ defmodule Cldr.Language do
             "bas", "bax", "bbc", "bbj", ...]
         """
         @spec available_languages() :: list(String.t()) | {:error, term()}
-        @spec available_languages(Cldr.locale_name() | LanguageTag.t()) ::
+        @spec available_languages(Locale.locale_name() | LanguageTag.t()) ::
                 list(String.t()) | {:error, term()}
         def available_languages(locale \\ get_locale())
 
@@ -112,7 +112,7 @@ defmodule Cldr.Language do
         """
         @spec known_languages() ::
                 %{String.t() => %{required(styles()) => String.t()}} | {:error, term()}
-        @spec known_languages(Cldr.locale_name() | LanguageTag.t()) ::
+        @spec known_languages(Locale.locale_name() | LanguageTag.t()) ::
                 %{String.t() => %{required(styles()) => String.t()}} | {:error, term()}
         def known_languages(locale \\ get_locale())
 
@@ -121,8 +121,8 @@ defmodule Cldr.Language do
         end
 
         # Implement available_locales/known_locales
-        for locale_name <- Cldr.Locale.Loader.known_locale_names(config) do
-          languages = locale_name |> Cldr.Locale.Loader.get_locale(config) |> Map.get(:languages)
+        for locale_name <- Locale.Loader.known_locale_names(config) do
+          languages = locale_name |> Locale.Loader.get_locale(config) |> Map.get(:languages)
 
           def available_languages(unquote(locale_name)) do
             unquote(Enum.sort(Map.keys(languages)))
@@ -133,20 +133,7 @@ defmodule Cldr.Language do
           end
         end
 
-        # Error cases for available_locales/known_locales
-        def available_languages(locale) when Cldr.is_locale_name(locale) do
-          with {:ok, locale} <- backend().validate_locale(locale) do
-            available_languages(locale)
-          end
-        end
-
         def available_languages(locale), do: {:error, Locale.locale_error(locale)}
-
-        def known_languages(locale) do
-          with {:ok, locale} <- backend().validate_locale(locale) do
-            known_languages(locale)
-          end
-        end
 
         def known_languages(locale), do: {:error, Locale.locale_error(locale)}
 
@@ -155,11 +142,12 @@ defmodule Cldr.Language do
 
         ## Example
 
-            iex> #{inspect(__MODULE__)}.Language.to_string(:eo)
+            iex> #{inspect(__MODULE__)}.Language.to_string("eo")
             {:ok, "Esperanto"}
         """
-        @spec to_string(Cldr.locale_name() | LanguageTag.t()) :: {:ok, String.t()} | {:error, term()}
-        @spec to_string(Cldr.locale_name() | LanguageTag.t(), Keyword.t()) ::
+        @spec to_string(Locale.language() | LanguageTag.t()) ::
+                {:ok, String.t()} | {:error, term()}
+        @spec to_string(Locale.language() | LanguageTag.t(), Keyword.t()) ::
                 {:ok, String.t()} | {:error, term()}
         def to_string(key, options \\ []) do
           opts =
@@ -168,7 +156,7 @@ defmodule Cldr.Language do
             |> merge_locale(options[:locale])
             |> merge_fallback(options[:fallback])
 
-          result = to_string_by_locale(to_string(key), opts.locale, opts)
+          result = to_string_by_locale(key, opts.locale, opts)
 
           if result == :error && Map.fetch!(opts, :fallback) do
             to_string_by_locale(key, default_locale(), opts)
@@ -177,9 +165,19 @@ defmodule Cldr.Language do
           end
         end
 
-        defp to_string_by_locale(key, locale, %{style: style}) do
+        @spec to_string_by_locale(
+                Locale.language() | LanguageTag.t(),
+                Locale.locale_name(),
+                Keyword.t()
+              ) ::
+                {:ok, String.t()} | {:error, term()}
+        defp to_string_by_locale(%LanguageTag{language: language}, locale, opts) do
+          to_string_by_locale(language, locale, opts)
+        end
+
+        defp to_string_by_locale(language, locale, %{style: style}) do
           with {:ok, locale} <- backend().validate_locale(locale),
-               {:ok, lang} <- locale.cldr_locale_name |> known_languages |> Map.fetch(key) do
+               {:ok, lang} <- locale.cldr_locale_name |> known_languages() |> Map.fetch(language) do
             case Map.fetch(lang, style) do
               {:ok, _} = val -> val
               :error -> Map.fetch(lang, :standard)
