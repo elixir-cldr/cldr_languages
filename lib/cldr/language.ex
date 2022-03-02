@@ -156,28 +156,23 @@ defmodule Cldr.Language do
             |> merge_locale(options[:locale])
             |> merge_fallback(options[:fallback])
 
-          result = to_string_by_locale(key, opts.locale, opts)
+          with {:ok, locale} <- backend().validate_locale(opts.locale) do
+            result = to_string_by_locale(key, locale, opts)
 
-          if result == :error && Map.fetch!(opts, :fallback) do
-            to_string_by_locale(key, default_locale(), opts)
-          else
-            result
+            if result == :error && Map.fetch!(opts, :fallback) do
+              to_string_by_locale(key, default_locale(), opts)
+            else
+              result
+            end
           end
         end
 
-        @spec to_string_by_locale(
-                Locale.language() | LanguageTag.t(),
-                Locale.locale_name(),
-                Keyword.t()
-              ) ::
-                {:ok, String.t()} | {:error, term()}
         defp to_string_by_locale(%LanguageTag{language: language}, locale, opts) do
           to_string_by_locale(language, locale, opts)
         end
 
         defp to_string_by_locale(language, locale, %{style: style}) do
-          with {:ok, locale} <- backend().validate_locale(locale),
-               {:ok, lang} <- locale.cldr_locale_name |> known_languages() |> Map.fetch(language) do
+          with {:ok, lang} <- locale.cldr_locale_name |> known_languages() |> Map.fetch(language) do
             case Map.fetch(lang, style) do
               {:ok, _} = val -> val
               :error -> Map.fetch(lang, :standard)
