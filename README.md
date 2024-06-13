@@ -1,11 +1,10 @@
 # Cldr Languages
 
-[![Build Status](https://travis-ci.org/LostKobrakai/cldr_languages.svg?branch=master)](https://travis-ci.org/LostKobrakai/cldr_languages)
 [![Hex.pm](https://img.shields.io/hexpm/v/ex_cldr_languages.svg)](https://hex.pm/packages/ex_cldr_languages)
 [![Hex.pm](https://img.shields.io/hexpm/dw/ex_cldr_languages.svg?)](https://hex.pm/packages/ex_cldr_languages)
 [![Hex.pm](https://img.shields.io/hexpm/l/ex_cldr_languages.svg)](https://hex.pm/packages/ex_cldr_languages)
 
-[ex_cldr_languages](https://github.com/LostKobrakai/cldr_languages) is an addon library application for [ex_cldr](https://hex.pm/packages/ex_cldr) that provides localization and listing of languages.
+[ex_cldr_languages](https://github.com/elixir-cldr/cldr_languages) is an addon library application for [ex_cldr](https://hex.pm/packages/ex_cldr) that provides localization and listing of languages.
 
 The primary api is `MyApp.Backend.Language.to_string/2`. The following examples demonstrate:
 
@@ -25,7 +24,7 @@ iex> MyApp.Backend.Language.to_string "en", locale: "de"
 ```elixir
 def deps do
   [
-    {:ex_cldr_languages, "~> 0.2.0"}
+    {:ex_cldr_languages, "~> 0.3.0"}
   ]
 end
 ```
