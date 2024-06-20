@@ -150,6 +150,8 @@ defmodule Cldr.Language do
         @spec to_string(Locale.language() | LanguageTag.t(), Keyword.t()) ::
                 {:ok, String.t()} | {:error, term()}
         def to_string(key, options \\ []) do
+          key = standardize_locale(key)
+
           opts =
             %{}
             |> merge_style(options[:style])
@@ -211,6 +213,13 @@ defmodule Cldr.Language do
               "Valid fallbacks are #{inspect([true, false])}."
 
           raise ArgumentError, msg
+        end
+
+        defp standardize_locale(locale) do
+          case backend().validate_locale(locale) do
+            {:ok, validated_locale} -> to_string(validated_locale)
+            _ -> locale
+          end
         end
       end
     end
