@@ -1,7 +1,7 @@
 defmodule Cldr.LanguageTest do
   use ExUnit.Case
   alias Cldr.Language.TestBackend
-  # doctest MyApp.Backend.Language
+  # doctest MyApp.Cldr.Language
 
   @post_atom_locale Application.spec(:ex_cldr, :vsn)
                     |> List.to_string()

@@ -7,7 +7,7 @@ defmodule Cldr.Language do
 
   ## Example
 
-      defmodule MyApp.Backend do
+      defmodule MyApp.Cldr do
         use Cldr,
           providers: [Cldr.Language, …],
           …
@@ -15,7 +15,8 @@ defmodule Cldr.Language do
 
   ## Interface
 
-  All functionality will be compiled into `MyApp.Backend.Language`.
+  All functionality will be compiled into `MyApp.Cldr.Language` (or wherever
+  your Cldr backend module lives).
 
   ### Functions
 
